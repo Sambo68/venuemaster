@@ -1,3 +1,13 @@
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBPKiuOqX5hulMyUdzIzWrf7fzZERFr3kM",
+  authDomain: "venuemaster-7f0fe.firebaseapp.com",
+  databaseURL: "https://venuemaster-7f0fe.firebaseio.com",
+  projectId: "venuemaster-7f0fe",
+  storageBucket: "",
+  messagingSenderId: "974250603106"
+};
+firebase.initializeApp(config);
 
 var geocoder;
   var map;
