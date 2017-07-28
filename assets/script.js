@@ -40,8 +40,6 @@
 
 	       			var eventObject = {
 	       				name: response._embedded.events[i].name,
-	       				info: response._embedded.events[i].info,
-	       				venue: venueName,
 	       				priceMin: priceMin,
 	       				priceMax: priceMax,
 	       				date: response._embedded.events[i].dates.start.localDate,
