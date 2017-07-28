@@ -2,6 +2,8 @@
 
 	$("#formID").on("submit", function (event) {
 		event.preventDefault();
+		$(".buttonsDiv").empty();
+		$(".eventListDiv").empty();
 
 		var zipcode = $("#zipCode").val().trim();
 		var radius = $("#radius").val().trim();
@@ -38,13 +40,23 @@
 	       				priceMax = response._embedded.events[i].priceRanges[0].max;
 	       			}
 
+	       			var address;
+
+	       			if (response._embedded.events[i]._embedded.venues[0].address == undefined) {
+	       				address = "N/A";
+	       			}
+	       			else {
+	       				address = response._embedded.events[i]._embedded.venues[0].address.line1;
+	       			}
+
 	       			var eventObject = {
 	       				name: response._embedded.events[i].name,
+	       				venue: venueName,
 	       				priceMin: priceMin,
 	       				priceMax: priceMax,
 	       				date: response._embedded.events[i].dates.start.localDate,
 	       				url: response._embedded.events[i].url,
-	       				address: response._embedded.events[i]._embedded.venues[0].address.line1,
+	       				address: address,
 	       				city: response._embedded.events[i]._embedded.venues[0].city.name,
 	       				state: response._embedded.events[i]._embedded.venues[0].state.stateCode,
 	       				postalCode: response._embedded.events[i]._embedded.venues[0].postalCode
@@ -79,11 +91,46 @@
 
 	function renderEvents () {
 		$(".eventListDiv").empty();
+		var eventPanel = $("<div>").addClass("panel panel-primary");
+		var panelHeading = $("<div>").addClass("panel-heading").html("Events List");
+		eventPanel.append(panelHeading);
+		var panelBody = $("<div>").addClass("panel-body");
+		var table = $("<table>").addClass("table table-hover");
+		var thead = $("<thead>");
+		var theadRow = $("<tr>");
+		var nameCol = $("<th>").text("Name");
+		var venueCol = $("<th>").text("Venue");
+		var minCol = $("<th>").text("Price (min)");
+		var maxCol = $("<th>").text("Price (max)");
+		var dateCol = $("<th>").text("Date");
+		var buyCol = $("<th>").text("Buy Tickets");
+		var saveCol = $("<th>").text("Save");
+
+		theadRow.append(nameCol).append(venueCol).append(minCol).append(maxCol).append(dateCol).append(buyCol).append(saveCol);
+		thead.append(theadRow);
+		table.append(thead);
+
+		var tableBody = $("<tbody>").addClass("eventContent");
+
+		$(".eventListDiv").append(eventPanel);
+
 		for (var i = 0; i < venueEvents[$(this).attr("data-prop")].length; i++) {
-			var eventDiv = $("<div>");
-			eventDiv.html("<p>" + venueEvents[$(this).attr("data-prop")][i].name + " - " + venueEvents[$(this).attr("data-prop")][i].date + "</p>");
-			$(".eventListDiv").append(eventDiv);
+			var eventRow = $("<tr>");
+			var cell01 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].name);
+			var cell02 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].venue);
+			var cell03 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].priceMin);
+			var cell04 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].priceMax);
+			var cell05 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].date);
+			var cell06 = $("<td>").html("<a href='"+venueEvents[$(this).attr("data-prop")][i].url+"' target='_blank'>BUY</a>");
+			var cell07 = $("<td>").html("<button class='saveButton'>SAVE</button>");
+			eventRow.append(cell01).append(cell02).append(cell03).append(cell04).append(cell05).append(cell06).append(cell07);
+			$(tableBody).append(eventRow);
 		}
+
+		table.append(tableBody);
+		panelBody.append(table);
+		eventPanel.append(panelBody);
+
 	};
 
 	$(document).on("click", ".venueButton", renderEvents);
