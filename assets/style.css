@@ -4,6 +4,12 @@ body {
 #index body {
 	 background-color: ED6D24;
 }
+.panel-primary{
+	background-color: ED6D24;
+}
+.jumbotron{
+	background-color: 0A60BA;
+}
 p {
 	color: ffffff;
 }
