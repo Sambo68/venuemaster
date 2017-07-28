@@ -1,9 +1,12 @@
 body {
+	background-color: ED6D24;
+}
+#index body {
 	 background-color: ED6D24;
 }
 p {
 	color: ffffff;
 }
-h1 {
+#index h1 {
 	color: ffffff;
 }
