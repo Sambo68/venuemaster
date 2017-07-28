@@ -1,10 +1,10 @@
 	var venueEvents = {};
 
-	$("#search").on("click", function (event) {
+	$("#formID").on("submit", function (event) {
 		event.preventDefault();
 
-		var zipcode = "33432";
-		var radius = "25";
+		var zipcode = $("#zipCode").val().trim();
+		var radius = $("#radius").val().trim();
 		var GMqueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address="+zipcode+"&key=AIzaSyApGncbSHu8Y4FHV7GkSBWUPkgEnxMJFdQ"
 
 		$.ajax({
@@ -66,21 +66,23 @@
 				for (var prop in venueEvents) {
 					var button = $("<button>");
 					button.text(prop).attr("data-prop", prop).addClass("venueButton");
-					$("#buttons").append(button);
+					$(".buttonsDiv").append(button);
 				}
 				};
 
 	       		renderButtons();
 			});
 		});
+
+		return false;
 	});
 
 	function renderEvents () {
-		$("#events").empty();
+		$(".eventListDiv").empty();
 		for (var i = 0; i < venueEvents[$(this).attr("data-prop")].length; i++) {
 			var eventDiv = $("<div>");
-			eventDiv.html(venueEvents[$(this).attr("data-prop")][i].name + " - " + venueEvents[$(this).attr("data-prop")][i].date);
-			$("#events").append(eventDiv);
+			eventDiv.html("<p>" + venueEvents[$(this).attr("data-prop")][i].name + " - " + venueEvents[$(this).attr("data-prop")][i].date + "</p>");
+			$(".eventListDiv").append(eventDiv);
 		}
 	};
 

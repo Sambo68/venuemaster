@@ -17,7 +17,9 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3XF4wO9kc4rWwYq7yiGL1lrfKEws7Zck&callback=initMap">
     </script>
-	<link rel="stylesheet" type="text/css" href="assets/style.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+
 </head>
 
 <body onload="initMap()">
@@ -42,7 +44,7 @@
         </div>
 
         <div class="panel-body">
-          <form>
+          <form id="formID">
             <div class="form-group">
               <label for="zipCode">Zip Code</label>
               <input type="text" class="form-control" id="zipCode" placeholder="Zip Code">
@@ -108,6 +110,9 @@
   </div>
 
 </div>
+
+
+<script src="assets/script.js"></script>
 
 </body>
 </html>
