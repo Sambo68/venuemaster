@@ -122,7 +122,8 @@
 			var cell04 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].priceMax);
 			var cell05 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].date);
 			var cell06 = $("<td>").html("<a href='"+venueEvents[$(this).attr("data-prop")][i].url+"' target='_blank'>BUY</a>");
-			var cell07 = $("<td>").html("<button class='saveButton" + i + "'>SAVE</button>");
+			var cell07 = $("<td>").html("<button class='saveButton data-" + i + "'>SAVE</button>");
+
 			eventRow.append(cell01).append(cell02).append(cell03).append(cell04).append(cell05).append(cell06).append(cell07);
 			$(tableBody).append(eventRow);
 		}
