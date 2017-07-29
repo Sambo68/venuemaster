@@ -1,4 +1,5 @@
 	var venueEvents = {};
+	var counter = 0;
 
 	$("#formID").on("submit", function (event) {
 		event.preventDefault();
@@ -116,14 +117,19 @@
 
 		for (var i = 0; i < venueEvents[$(this).attr("data-prop")].length; i++) {
 			var eventRow = $("<tr>");
-			eventRow.addClass("event"+i);
+			eventRow.attr("id", "event"+i);
+			eventRow.attr("data-name", venueEvents[$(this).attr("data-prop")][i].name);
+			eventRow.attr("data-venue", venueEvents[$(this).attr("data-prop")][i].venue);
+			eventRow.attr("data-low", venueEvents[$(this).attr("data-prop")][i].priceMin);
+			eventRow.attr("data-high", venueEvents[$(this).attr("data-prop")][i].priceMax);
+			eventRow.attr("data-date", venueEvents[$(this).attr("data-prop")][i].date);
 			var cell01 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].name);
 			var cell02 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].venue);
 			var cell03 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].priceMin);
 			var cell04 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].priceMax);
 			var cell05 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].date);
 			var cell06 = $("<td>").html("<a href='"+venueEvents[$(this).attr("data-prop")][i].url+"' target='_blank'>BUY</a>");
-			var cell07 = $("<td>").html("<button class='saveButton' data-i='" + i + "'>SAVE</button>");
+			var cell07 = $("<td>").html("<button class='saveButton' data-i='" + i + "'  data-url='"+venueEvents[$(this).attr("data-prop")][i].url+"'>SAVE</button>");
 
 			eventRow.append(cell01).append(cell02).append(cell03).append(cell04).append(cell05).append(cell06).append(cell07);
 			$(tableBody).append(eventRow);
@@ -136,3 +142,68 @@
 	};
 
 	$(document).on("click", ".venueButton", renderEvents);
+
+	// Initialize Firebase
+	var config = {
+	 apiKey: "AIzaSyBPKiuOqX5hulMyUdzIzWrf7fzZERFr3kM",
+	 authDomain: "venuemaster-7f0fe.firebaseapp.com",
+	 databaseURL: "https://venuemaster-7f0fe.firebaseio.com",
+	 projectId: "venuemaster-7f0fe",
+	 storageBucket: "",
+	 messagingSenderId: "974250603106"
+	};
+	firebase.initializeApp(config);
+	
+
+	var database = firebase.database();
+
+	function saveFB () {
+		console.log("working");
+		var eventName = $("#event" + $(this).attr("data-i")).attr("data-name");
+		var venueName = $("#event" + $(this).attr("data-i")).attr("data-venue");
+		var minPrice = $("#event" + $(this).attr("data-i")).attr("data-low");
+		var maxPrice = $("#event" + $(this).attr("data-i")).attr("data-high");
+		var eventDate = $("#event" + $(this).attr("data-i")).attr("data-date");
+		var url = $(this).attr("data-url");
+
+		// Creates local "temporary" object for holding event data
+		var eventToSave = {
+		name: eventName,
+		venue: venueName,
+		lowestPrice: minPrice,
+		highestPrice: maxPrice,
+		date: eventDate,
+		url: url
+		};
+
+		database.ref().push(eventToSave);
+	};
+
+	database.ref().orderByChild("dateAdded").on("child_added", function (childSnapshot) {
+			var newRow = $("<tr>").addClass("row-" + counter);
+
+			var cell01 = $("<td>").html(childSnapshot.val().name);
+			var cell02 = $("<td>").html(childSnapshot.val().venue);
+			var cell03 = $("<td>").html(childSnapshot.val().lowestPrice);
+			var cell04 = $("<td>").html(childSnapshot.val().highestPrice);
+			var cell05 = $("<td>").html(childSnapshot.val().date);
+			var cell06 = $("<td>").html("<a href='"+childSnapshot.val().url+"' target='_blank'>BUY</a>");
+			var cell07 = $("<td>").html("<button class='removeButton' data-counter='" + counter + "' data-key='"+ childSnapshot.key +"'>REMOVE</button>");
+
+			newRow.append(cell01).append(cell02).append(cell03).append(cell04).append(cell05).append(cell06).append(cell07);
+
+			$("#tableContent").append(newRow);
+
+			counter++;
+
+	}, function (error) {
+  			alert(error.code);
+  		});
+
+	function removeFB () {
+		database.ref().child($(this).attr("data-key")).remove();
+		$(".row-" + $(this).attr("data-counter")).remove();
+	};
+
+	$(document).on("click", ".saveButton", saveFB);
+	$(document).on("click", ".removeButton", removeFB);
