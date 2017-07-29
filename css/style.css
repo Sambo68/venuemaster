@@ -41,3 +41,9 @@ p {
 .venueButton, #buttons p {
 	color: 000000;
 }
+
+.buttonRow {
+	background-color: black;
+	padding: 5px;
+
+}
