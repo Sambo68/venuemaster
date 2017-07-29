@@ -116,13 +116,14 @@
 
 		for (var i = 0; i < venueEvents[$(this).attr("data-prop")].length; i++) {
 			var eventRow = $("<tr>");
+			eventRow.addClass("event"+i);
 			var cell01 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].name);
 			var cell02 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].venue);
 			var cell03 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].priceMin);
 			var cell04 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].priceMax);
 			var cell05 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].date);
 			var cell06 = $("<td>").html("<a href='"+venueEvents[$(this).attr("data-prop")][i].url+"' target='_blank'>BUY</a>");
-			var cell07 = $("<td>").html("<button class='saveButton data-" + i + "'>SAVE</button>");
+			var cell07 = $("<td>").html("<button class='saveButton' data-i='" + i + "'>SAVE</button>");
 
 			eventRow.append(cell01).append(cell02).append(cell03).append(cell04).append(cell05).append(cell06).append(cell07);
 			$(tableBody).append(eventRow);
