@@ -1,0 +1,43 @@
+body {
+	background-image: url(../images/bw_crowd.jpg);
+	background-attachment: fixed;
+}
+
+.panel-primary{
+	background-color: 000000;
+}
+
+.jumbotron{
+	background-color: 000000;
+}
+
+p {
+	color: ffffff;
+}
+
+#index h1 {
+	color: ffffff;
+}
+.eventListDiv{
+	background-color: ffffff;
+	margin-top: 25px;
+	padding: 20px;
+}
+
+.eventListDiv p {
+	color: 000000;
+	margin-top: 15px;
+	padding-left: 15px;
+}
+
+.venueButton, #buttons {
+	padding: 3px;
+	margin: 5px;
+	color: white;
+	background-color: white;
+	border-radius: 5px;
+}
+
+.venueButton, #buttons p {
+	color: 000000;
+}

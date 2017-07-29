@@ -62,7 +62,7 @@
 	       		console.log (venueEvents);
 
 	       		function renderButtons () {
-				$("#buttons").empty();
+				$("#buttonsDiv").empty();
 				for (var prop in venueEvents) {
 					var button = $("<button>");
 					button.text(prop).attr("data-prop", prop).addClass("venueButton");
