@@ -108,11 +108,17 @@
 
 	       		function renderButtons () {
 				$("#buttonsDiv").empty();
+				var buttonsPanel = $("<div>").addClass("panel panel-primary");
+				var panelHeading = $("<div>").addClass("panel-heading").html("Local Venues");
+				buttonsPanel.append(panelHeading);
+				var panelBody = $("<div>").addClass("panel-body");
 				for (var prop in venueEvents) {
 					var button = $("<button>");
 					button.text(prop).attr("data-prop", prop).addClass("venueButton");
-					$(".buttonsDiv").append(button);
+					$(panelBody).append(button);
 				}
+				buttonsPanel.append(panelBody);
+				$(".buttonsDiv").append(buttonsPanel);
 				};
 
 	       		renderButtons();
