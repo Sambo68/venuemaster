@@ -116,6 +116,7 @@
 
 		for (var i = 0; i < venueEvents[$(this).attr("data-prop")].length; i++) {
 			var eventRow = $("<tr>");
+			eventRow.addClass("event" + i);
 			var cell01 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].name);
 			var cell02 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].venue);
 			var cell03 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].priceMin);
