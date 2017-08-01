@@ -23,14 +23,19 @@
 	      zoom: 14,
 	      center: latlng
 	    }
+        var infowindow = new google.maps.InfoWindow({
+          content: address
+        });
 	    map = new google.maps.Map(document.getElementById('Gmap'), mapOptions);
 	    var marker = new google.maps.Marker({
 		  map: map,
 		  position: latlng
 			 });
 
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
 			});
-
+        });
 	  }
 
 	$("#formID").on("submit", function (event) {
