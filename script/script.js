@@ -5,7 +5,7 @@
     var map;
     var mapCreated = false;
 	  function initMap(address) {
-	  	var Gmap = $("<div id='Gmap' style='width: 450px; height: 480px;'>");
+	  	var Gmap = $("<div id='Gmap' style='width: auto; height: 480px;'>");
 		$(".venueMapDiv").append(Gmap);
 
 	    geocoder = new google.maps.Geocoder();
@@ -37,6 +37,7 @@
 		event.preventDefault();
 		$(".buttonsDiv").empty();
 		$(".eventListDiv").empty();
+		venueEvents = {};
 
 		var zipcode = $("#zipCode").val().trim();
 		var radius = $("#radius").val().trim();
@@ -58,6 +59,13 @@
 	    	}).done(function(response) {
 	       		console.log(response);
 
+	       		if (response._embedded == undefined) {
+	       			var jumbotron = $("<div>").addClass("jumbotron text-center ß noEvents");
+	       			jumbotron.html("<h1>No Events Found</h1>");
+	       			$(".buttonsDiv").append(jumbotron);
+	       		}
+
+	       		else {
 	       		for (var i = 0; i < response._embedded.events.length; i++) {
 	       			var venueName = response._embedded.events[i]._embedded.venues[0].name;
 
@@ -107,7 +115,7 @@
 	       		console.log (venueEvents);
 
 	       		function renderButtons () {
-				$("#buttonsDiv").empty();
+				$(".buttonsDiv").empty();
 				var buttonsPanel = $("<div>").addClass("panel panel-primary");
 				var panelHeading = $("<div>").addClass("panel-heading").html("Local Venues");
 				buttonsPanel.append(panelHeading);
@@ -118,10 +126,14 @@
 					$(panelBody).append(button);
 				}
 				buttonsPanel.append(panelBody);
-				$(".buttonsDiv").append(buttonsPanel);
+				$(".buttonsDiv").append(buttonsPanel); 
 				};
 
 	       		renderButtons();
+	       	}
+	       	for (prop in venueEvents) {
+	       		console.log(venueEvents.prop);
+	       	};
 			});
 		});
 
