@@ -26,10 +26,12 @@
         var infowindow = new google.maps.InfoWindow({
           content: address
         });
+
 	    map = new google.maps.Map(document.getElementById('Gmap'), mapOptions);
 	    var marker = new google.maps.Marker({
 		  map: map,
 		  position: latlng
+		  title: address
 			 });
 
         marker.addListener('click', function() {
