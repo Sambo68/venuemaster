@@ -30,14 +30,19 @@
 	    map = new google.maps.Map(document.getElementById('Gmap'), mapOptions);
 	    var marker = new google.maps.Marker({
 		  map: map,
-		  position: latlng
-		  title: address
+		  position: latlng,
+          title: address
 			 });
 
         marker.addListener('click', function() {
           infowindow.open(map, marker);
-			});
+          console.log("clicked");
+          debugger
         });
+        debugger
+
+			});
+
 	  }
 
 	$("#formID").on("submit", function (event) {
@@ -196,7 +201,7 @@
 		panelBody.append(table);
 		eventPanel.append(panelBody);
 
-		var address = venueEvents[$(this).attr("data-prop")][0].address + " "+venueEvents[$(this).attr("data-prop")][0].city + ", " + venueEvents[$(this).attr("data-prop")][0].state + " "+ venueEvents[$(this).attr("data-prop")][0].postalCode;
+		var address = venueEvents[$(this).attr("data-prop")][0].venue + "<br> " + venueEvents[$(this).attr("data-prop")][0].address + " "+venueEvents[$(this).attr("data-prop")][0].city + ", " + venueEvents[$(this).attr("data-prop")][0].state + " "+ venueEvents[$(this).attr("data-prop")][0].postalCode;
     	    if(mapCreated === false){
     		  	initMap(address);
     			mapCreated = true;
