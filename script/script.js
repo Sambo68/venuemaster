@@ -23,12 +23,20 @@
 	      zoom: 14,
 	      center: latlng
 	    }
+        var infowindow = new google.maps.InfoWindow({
+          content: address
+        });
+
 	    map = new google.maps.Map(document.getElementById('Gmap'), mapOptions);
 	    var marker = new google.maps.Marker({
 		  map: map,
-		  position: latlng
+		  position: latlng,
+          title: address
 			 });
 
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
 			});
 
 	  }
@@ -189,7 +197,7 @@
 		panelBody.append(table);
 		eventPanel.append(panelBody);
 
-		var address = venueEvents[$(this).attr("data-prop")][0].address + " "+venueEvents[$(this).attr("data-prop")][0].city + ", " + venueEvents[$(this).attr("data-prop")][0].state + " "+ venueEvents[$(this).attr("data-prop")][0].postalCode;
+		var address = venueEvents[$(this).attr("data-prop")][0].venue + "<br> " + venueEvents[$(this).attr("data-prop")][0].address + " "+venueEvents[$(this).attr("data-prop")][0].city + ", " + venueEvents[$(this).attr("data-prop")][0].state + " "+ venueEvents[$(this).attr("data-prop")][0].postalCode;
     	    if(mapCreated === false){
     		  	initMap(address);
     			mapCreated = true;
@@ -197,11 +205,19 @@
     		else{
     			geocoder.geocode( { 'address': address}, function(results, status) {
      				if (status == 'OK') {
+
+				        var infowindow = new google.maps.InfoWindow({
+				          content: address
+				        });
 				        map.setCenter(results[0].geometry.location);
 				        var marker = new google.maps.Marker({
 				            map: map,
-				            position: results[0].geometry.location
+				            position: results[0].geometry.location,
+     				        title: address
 				        });
+				        marker.addListener('click', function() {
+        			    infowindow.open(map, marker);
+  				        });
 				    } else {
 				        alert('Geocode was not successful for the following reason: ' + status);
 				      }
