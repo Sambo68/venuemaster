@@ -49,6 +49,17 @@
 
 		var zipcode = $("#zipCode").val().trim();
 		var radius = $("#radius").val().trim();
+
+		if (zipcode < 9999 || zipcode > 99999) {
+			alert("Not a Zip Code");
+		}
+		else if (radius < 1 || radius == "") {
+			alert("Too Small of a Radius");
+		}
+		else {
+			console.log("zipcode");
+		
+
 		var GMqueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address="+zipcode+"&key=AIzaSyApGncbSHu8Y4FHV7GkSBWUPkgEnxMJFdQ"
 
 		$.ajax({
@@ -139,12 +150,12 @@
 
 	       		renderButtons();
 	       	}
-	       	for (prop in venueEvents) {
-	       		console.log(venueEvents.prop);
-	       	};
 			});
 		});
+		}
 
+	    $("#zipCode").val("");
+ 		$("#radius").val("");
 		return false;
 	});
 
@@ -187,7 +198,7 @@
 			var cell04 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].priceMax);
 			var cell05 = $("<td>").text(venueEvents[$(this).attr("data-prop")][i].date);
 			var cell06 = $("<td>").html("<a href='"+venueEvents[$(this).attr("data-prop")][i].url+"' target='_blank'>BUY</a>");
-			var cell07 = $("<td>").html("<button class='saveButton' data-i='" + i + "'  data-url='"+venueEvents[$(this).attr("data-prop")][i].url+"'>SAVE</button>");
+			var cell07 = $("<td>").html("<button class='saveButton' data-i='" + i + "'  data-url='"+venueEvents[$(this).attr("data-prop")][i].url+"'><span class='glyphicon glyphicon-save'></span></button>");
 
 			eventRow.append(cell01).append(cell02).append(cell03).append(cell04).append(cell05).append(cell06).append(cell07);
 			$(tableBody).append(eventRow);
@@ -223,7 +234,6 @@
 				      }
 				    });
     			  }
-
 	};
 
 	$(document).on("click", ".venueButton", renderEvents);
@@ -273,7 +283,7 @@
 			var cell04 = $("<td>").html(childSnapshot.val().highestPrice);
 			var cell05 = $("<td>").html(childSnapshot.val().date);
 			var cell06 = $("<td>").html("<a href='"+childSnapshot.val().url+"' target='_blank'>BUY</a>");
-			var cell07 = $("<td>").html("<button class='removeButton' data-counter='" + counter + "' data-key='"+ childSnapshot.key +"'>REMOVE</button>");
+			var cell07 = $("<td>").html("<button class='removeButton' data-counter='" + counter + "' data-key='"+ childSnapshot.key +"'><span class='glyphicon glyphicon-remove'></span></button>");
 
 			newRow.append(cell01).append(cell02).append(cell03).append(cell04).append(cell05).append(cell06).append(cell07);
 
@@ -311,6 +321,8 @@
   			to_email: emailAdd, 
   			html: tableHTML
 		});
+
+		$("#emailAdd").val("");
 
 		alert("E-mail Sent!");
 	});
