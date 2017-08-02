@@ -205,11 +205,19 @@
     		else{
     			geocoder.geocode( { 'address': address}, function(results, status) {
      				if (status == 'OK') {
+
+				        var infowindow = new google.maps.InfoWindow({
+				          content: address
+				        });
 				        map.setCenter(results[0].geometry.location);
 				        var marker = new google.maps.Marker({
 				            map: map,
-				            position: results[0].geometry.location
+				            position: results[0].geometry.location,
+     				        title: address
 				        });
+				        marker.addListener('click', function() {
+        			    infowindow.open(map, marker);
+  				        });
 				    } else {
 				        alert('Geocode was not successful for the following reason: ' + status);
 				      }
