@@ -1,31 +1,32 @@
 body {
 	background-image: url(../images/bw_crowd.jpg);
 	background-attachment: fixed;
+	color: fff;
+	font-weight: normal;
 }
 
 .panel-primary{
-	background-color: 000000;
+	background-color: 000;
+}
+
+.panel-primary p {
+	color: white;
 }
 
 .jumbotron{
-	background-color: 000000;
+	background-color: 000;
 }
 
-p {
-	color: ffffff;
+.panel-heading {
+	font-size: 18px;
 }
 
 #index h1 {
-	color: ffffff;
-}
-.eventListDiv{
-	background-color: ffffff;
-	margin-top: 25px;
-	padding: 20px;
+	color: fff;
 }
 
 .eventListDiv p {
-	color: 000000;
+	color: 000;
 	margin-top: 15px;
 	padding-left: 15px;
 }
@@ -39,11 +40,46 @@ p {
 }
 
 .venueButton, #buttons p {
-	color: 000000;
+	color: 000;
+	font-size: 13px;
 }
 
-.buttonRow {
-	background-color: black;
-	padding: 5px;
+.eventContent {
+	color: fff;
+	font-size: 13px;
+	font-weight: normal;
+}
 
+#tableContent {
+	font-size: 13px;
+	font-weight: normal;
+}
+
+#Gmap {
+	margin-bottom: 15px;
+	color: 000;
+}
+
+.eventRow:hover {
+	color: 000;
+}
+
+.saveButton {
+	color: 000;
+	font-size: 12px;
+	background-color: fff;
+	border-radius: 5px;
+	
+}
+
+.favoritRow:hover {
+	color: 000;
+}
+
+.removeButton {
+	color: 000;
+	font-size: 11px;
+	background-color: fff;
+	border-radius: 5px;
+	
 }

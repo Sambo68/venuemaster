@@ -185,7 +185,7 @@
 		$(".eventListDiv").append(eventPanel);
 
 		for (var i = 0; i < venueEvents[$(this).attr("data-prop")].length; i++) {
-			var eventRow = $("<tr>");
+			var eventRow = $("<tr class= 'eventRow'>");
 			eventRow.attr("id", "event"+i);
 			eventRow.attr("data-name", venueEvents[$(this).attr("data-prop")][i].name);
 			eventRow.attr("data-venue", venueEvents[$(this).attr("data-prop")][i].venue);
@@ -275,7 +275,7 @@
 	};
 
 	database.ref().orderByChild("dateAdded").on("child_added", function (childSnapshot) {
-			var newRow = $("<tr>").addClass("row-" + counter);
+			var newRow = $("<tr class= 'favoritRow'>").addClass("row-" + counter);
 
 			var cell01 = $("<td>").html(childSnapshot.val().name);
 			var cell02 = $("<td>").html(childSnapshot.val().venue);
