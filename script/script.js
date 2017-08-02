@@ -265,7 +265,7 @@
 	};
 
 	database.ref().orderByChild("dateAdded").on("child_added", function (childSnapshot) {
-			var newRow = $("<tr>").addClass("row-" + counter);
+			var newRow = $("<tr class= 'favoritRow'>").addClass("row-" + counter);
 
 			var cell01 = $("<td>").html(childSnapshot.val().name);
 			var cell02 = $("<td>").html(childSnapshot.val().venue);
