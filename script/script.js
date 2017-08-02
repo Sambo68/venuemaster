@@ -292,3 +292,29 @@
 
 	$(document).on("click", ".saveButton", saveFB);
 	$(document).on("click", ".removeButton", removeFB);
+
+	$("#emailID").on("submit", function (event) {
+		event.preventDefault();
+
+		var rows = $("#savedTable tr");
+		var tableHTML = ""; 
+		for (var i = 1; i < rows.length; i++) {
+			var row = rows[i].children;
+			var name = $(row[0]).html();
+			var date = $(row[4]).html();
+			tableHTML+=name + " " + date + ", ";
+		}
+
+		var emailAdd = $("#emailAdd").val().trim();
+
+		emailjs.send("gmail","events_template",{
+  			to_email: emailAdd, 
+  			html: tableHTML
+		});
+
+		alert("E-mail Sent!");
+	});
+
+
+
+
