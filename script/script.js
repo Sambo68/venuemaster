@@ -5,7 +5,7 @@
     var map;
     var mapCreated = false;
 	  function initMap(address) {
-	  	var Gmap = $("<div id='Gmap' style='width: 450px; height: 480px;'>");
+	  	var Gmap = $("<div id='Gmap' style='width: auto; height: 480px;'>");
 		$(".venueMapDiv").append(Gmap);
 
 	    geocoder = new google.maps.Geocoder();
@@ -23,12 +23,20 @@
 	      zoom: 14,
 	      center: latlng
 	    }
+        var infowindow = new google.maps.InfoWindow({
+          content: address
+        });
+
 	    map = new google.maps.Map(document.getElementById('Gmap'), mapOptions);
 	    var marker = new google.maps.Marker({
 		  map: map,
-		  position: latlng
+		  position: latlng,
+          title: address
 			 });
 
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
 			});
 
 	  }
@@ -37,6 +45,7 @@
 		event.preventDefault();
 		$(".buttonsDiv").empty();
 		$(".eventListDiv").empty();
+		venueEvents = {};
 
 		var zipcode = $("#zipCode").val().trim();
 		var radius = $("#radius").val().trim();
@@ -58,6 +67,13 @@
 	    	}).done(function(response) {
 	       		console.log(response);
 
+	       		if (response._embedded == undefined) {
+	       			var jumbotron = $("<div>").addClass("jumbotron text-center ß noEvents");
+	       			jumbotron.html("<h1>No Events Found</h1>");
+	       			$(".buttonsDiv").append(jumbotron);
+	       		}
+
+	       		else {
 	       		for (var i = 0; i < response._embedded.events.length; i++) {
 	       			var venueName = response._embedded.events[i]._embedded.venues[0].name;
 
@@ -107,7 +123,7 @@
 	       		console.log (venueEvents);
 
 	       		function renderButtons () {
-				$("#buttonsDiv").empty();
+				$(".buttonsDiv").empty();
 				var buttonsPanel = $("<div>").addClass("panel panel-primary");
 				var panelHeading = $("<div>").addClass("panel-heading").html("Local Venues");
 				buttonsPanel.append(panelHeading);
@@ -118,10 +134,14 @@
 					$(panelBody).append(button);
 				}
 				buttonsPanel.append(panelBody);
-				$(".buttonsDiv").append(buttonsPanel);
+				$(".buttonsDiv").append(buttonsPanel); 
 				};
 
 	       		renderButtons();
+	       	}
+	       	for (prop in venueEvents) {
+	       		console.log(venueEvents.prop);
+	       	};
 			});
 		});
 
@@ -177,7 +197,7 @@
 		panelBody.append(table);
 		eventPanel.append(panelBody);
 
-		var address = venueEvents[$(this).attr("data-prop")][0].address + " "+venueEvents[$(this).attr("data-prop")][0].city + ", " + venueEvents[$(this).attr("data-prop")][0].state + " "+ venueEvents[$(this).attr("data-prop")][0].postalCode;
+		var address = venueEvents[$(this).attr("data-prop")][0].venue + "<br> " + venueEvents[$(this).attr("data-prop")][0].address + " "+venueEvents[$(this).attr("data-prop")][0].city + ", " + venueEvents[$(this).attr("data-prop")][0].state + " "+ venueEvents[$(this).attr("data-prop")][0].postalCode;
     	    if(mapCreated === false){
     		  	initMap(address);
     			mapCreated = true;
@@ -185,11 +205,19 @@
     		else{
     			geocoder.geocode( { 'address': address}, function(results, status) {
      				if (status == 'OK') {
+
+				        var infowindow = new google.maps.InfoWindow({
+				          content: address
+				        });
 				        map.setCenter(results[0].geometry.location);
 				        var marker = new google.maps.Marker({
 				            map: map,
-				            position: results[0].geometry.location
+				            position: results[0].geometry.location,
+     				        title: address
 				        });
+				        marker.addListener('click', function() {
+        			    infowindow.open(map, marker);
+  				        });
 				    } else {
 				        alert('Geocode was not successful for the following reason: ' + status);
 				      }
@@ -264,3 +292,29 @@
 
 	$(document).on("click", ".saveButton", saveFB);
 	$(document).on("click", ".removeButton", removeFB);
+
+	$("#emailID").on("submit", function (event) {
+		event.preventDefault();
+
+		var rows = $("#savedTable tr");
+		var tableHTML = ""; 
+		for (var i = 1; i < rows.length; i++) {
+			var row = rows[i].children;
+			var name = $(row[0]).html();
+			var date = $(row[4]).html();
+			tableHTML+=name + " " + date + ", ";
+		}
+
+		var emailAdd = $("#emailAdd").val().trim();
+
+		emailjs.send("gmail","events_template",{
+  			to_email: emailAdd, 
+  			html: tableHTML
+		});
+
+		alert("E-mail Sent!");
+	});
+
+
+
+
