@@ -6,7 +6,7 @@ body {
 }
 
 .panel-primary{
-	background-color: 000000;
+	background-color: 000;
 }
 
 .panel-primary p {
@@ -14,28 +14,21 @@ body {
 }
 
 .jumbotron{
-	background-color: 000000;
+	background-color: 000;
 }
 
-/*p {
-	color: ffffff;*/
+.panel-heading {
+	font-size: 18px;
 }
 
 #index h1 {
-	color: ffffff;
-}
-.eventListDiv{
-	/*padding: 20px;*/
+	color: fff;
 }
 
 .eventListDiv p {
-	color: 000000;
+	color: 000;
 	margin-top: 15px;
 	padding-left: 15px;
-}
-
-.eventListDiv:hover {
-	color:black;
 }
 
 .venueButton, #buttons {
@@ -47,12 +40,12 @@ body {
 }
 
 .venueButton, #buttons p {
-	color: 000000;
+	color: 000;
 	font-size: 13px;
 }
 
 .eventContent {
-	color: ffffff;
+	color: fff;
 	font-size: 13px;
 	font-weight: normal;
 }
@@ -63,9 +56,30 @@ body {
 }
 
 #Gmap {
-	margin-bottom: -1px;
+	margin-bottom: 15px;
+	color: 000;
 }
 
 .eventRow:hover {
-	color: 000000;
+	color: 000;
+}
+
+.saveButton {
+	color: 000;
+	font-size: 12px;
+	background-color: fff;
+	border-radius: 5px;
+	
+}
+
+.favoritRow:hover {
+	color: 000;
+}
+
+.removeButton {
+	color: 000;
+	font-size: 11px;
+	background-color: fff;
+	border-radius: 5px;
+	
 }
