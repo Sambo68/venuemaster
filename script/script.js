@@ -174,7 +174,7 @@
 		$(".eventListDiv").append(eventPanel);
 
 		for (var i = 0; i < venueEvents[$(this).attr("data-prop")].length; i++) {
-			var eventRow = $("<tr>");
+			var eventRow = $("<tr class= 'eventRow'>");
 			eventRow.attr("id", "event"+i);
 			eventRow.attr("data-name", venueEvents[$(this).attr("data-prop")][i].name);
 			eventRow.attr("data-venue", venueEvents[$(this).attr("data-prop")][i].venue);
