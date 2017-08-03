@@ -59,11 +59,22 @@
 
 		//Data Validation for Zip Code
 		if (zipcode < 9999 || zipcode > 99999) {
-			alert("Not a Zip Code");
+			//Javascript for Not a Zip Code Modal
+			console.log("not a zip code");
+			$("#zipModal").show();
+			function closeZipModal () {
+				$("#zipModal").hide();
+			}
+			$(document).on("click", ".zipClose", closeZipModal);
 		}
 		//Data Validation for Radius
 		else if (radius < 1 || radius == "") {
-			alert("Too Small of a Radius");
+			//Javascript for Small Radius Modal
+			$("#radiusModal").show();
+			function closeRadiusModal () {
+				$("#radiusModal").hide();
+			}
+			$(document).on("click", ".radiusClose", closeRadiusModal);
 		}
 		else {
 			console.log("zipcode");
@@ -393,7 +404,12 @@
     		var dotpos = x.lastIndexOf(".");
     		//Tests to see if email address fits valid email format and if incorrect triggers not a valid e-mail address
     		if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
-        		alert("Not a valid e-mail address");
+    			//Javascript for Invalid Email Modal
+        		$("#invalidModal").show();
+				function invalidModal () {
+					$("#invalidModal").hide();
+				}
+				$(document).on("click", ".invalidClose", invalidModal);
         		return false;
     		}
     		//If format is correct, it sends the e-mail
@@ -402,7 +418,12 @@
   				to_email: emailAdd, 
   				html: tableHTML
 				});
-		    	alert("E-mail Sent!");
+				//Javascript for Sent Message Modal
+		    	$("#sentModal").show();
+				function sentModal () {
+					$("#sentModal").hide();
+				}
+				$(document).on("click", ".sentClose", sentModal);;
 		    	return true;
     		}
 		}
