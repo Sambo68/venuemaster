@@ -51,10 +51,12 @@
     <div class="col-md-12 col-sm-12 col-xs-12">    
       <div id="formPanel" class="  panel   panel-primary form-group">
 
+        <!-- Form heading area with a title of "Information Input" -->
         <div class="panel-heading"> 
           Information Input
         </div>
 
+        <!-- form zip code and radius input block -->    
         <div class="panel-body">
           <form id="formID">
             <div class="form-group">
@@ -68,38 +70,38 @@
             <button type="submit" class="btn btn-default btn-primary " id="submitButton">Submit</button>
           </form>
         </div>
-
       </div>
     </div>
   </div>
 
-	<!-- The return of dynamic buttons section -->
+	<!-- The return of dynamic buttons section after submiting the zip code and the desired radius -->
   <div class="row buttonRow">
     <div class="col-md-12">
       <div class="buttonsDiv"></div>
     </div>
   </div>
-	<!-- Dynamic venue map section -->
+
+	<!-- Dynamic venue map that appears once user clicks on the desired venue daynamic button -->
   <div class="row mapRow">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="venueMapDiv"></div>
     </div>
   </div>
-	<!-- Returned event list section -->
+
+	<!-- Dynamic event list of the venue that is selected by the user -->
   <div class="row eventText">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="eventListDiv"></div>
     </div>
   </div>
-	<!-- Event favorit list section -->
+
+	<!-- All events that are saved by the user from the daynamic event list. A table element was used to organiz the data  -->
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div id="tablePanel" class="  panel   panel-primary form-group">
-
         <div class="panel-heading"> 
           My Favorite Events:
         </div>
-
         <div class="panel-body">
           <table class="table table-hover" id="savedTable">
             <thead>
@@ -121,7 +123,8 @@
       </div>
     </div>
   </div>
-  <!-- Email favorit list section -->
+
+  <!-- Email favorit list using a form element -->
   <div class="row">
     <div class="col-md-12">
       <div id="emailPanel" class="panel panel-primary form-group">
@@ -142,39 +145,44 @@
   </div>
 </div>
 
+<!-- Incorect zip code format entry "Bootstrap modal plug in" alert --> 
+
 <div id="zipModal" class="modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button class="zipClose"><span class="close">&times;</span></button>
+        <button class="zipClose close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title blackText" id="zipModalLabel">Error</h4>
       </div>
       <div class="modal-body">
-        <p class="blackText">Not a Zip Code</p>
+        <p class="blackText">You have entered an incorrect Zip code!</p>
       </div>
     </div>
   </div>
 </div>
+
+<!-- To small radius entry "Bootstrap modal plug in" alert -->
 
 <div id="radiusModal" class="modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button class="radiusClose"><span class="close">&times;</span></button>
+        <button class="radiusClose close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title blackText" id="radiusModalLabel">Error</h4>
       </div>
       <div class="modal-body">
-        <p class="blackText">Too Small of a Radius</p>
+        <p class="blackText">Too Small of a Radius!</p>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Invalid e-mail address entry "Bootstrap modal plug in" alert -->
 <div id="invalidModal" class="modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button class="invalidClose"><span class="close">&times;</span></button>
+        <button class="invalidClose close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title blackText" id="invalidModalLabel">Error</h4>
       </div>
       <div class="modal-body">
@@ -184,15 +192,16 @@
   </div>
 </div>
 
+<!-- E-mail success "Bootstrap modal plug in" alert -->
 <div id="sentModal" class="modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button class="sentClose"><span class="close">&times;</span></button>
+        <button class="sentClose close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title blackText" id="sentModalLabel">Success</h4>
       </div>
       <div class="modal-body">
-        <p class="blackText">E-mail Sent</p>
+        <p class="blackText">E-mail Sent, Thank you!</p>
       </div>
     </div>
   </div>
