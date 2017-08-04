@@ -3,13 +3,19 @@
 	//counter used for creating individual row classes
 	var counter = 0;
 
+	//Below initilizes variables that are used by the Google Map feature
 	var geocoder;
     var map;
     var mapCreated = false;
+
+      //The initMap function initializes the Google Map, it is called upon click of a venue if the variable mapCreated is false.
 	  function initMap(address) {
+
+	  	//Code below creates and appends a div to the page where the Google Map will be dynamically added to the page.
 	  	var Gmap = $("<div id='Gmap' style='width: auto; height: 480px;'>");
 		$(".venueMapDiv").append(Gmap);
 
+		//The below code turns the address, that was passed into the initMap function, into latitude and longtiude coordinates, because those coordinates are neccessary to initalize the Google Map.
 	    geocoder = new google.maps.Geocoder();
 		var GMqueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=AIzaSyApGncbSHu8Y4FHV7GkSBWUPkgEnxMJFdQ"
 
@@ -19,23 +25,31 @@
 		    }).done(function(response) {
 		       	var latlong = response.results[0].geometry.location.lat + "," + response.results[0].geometry.location.lng;
 
+		//The code below takes the retreived Lat and Long and puts it in a variable
 	    var latlng = new google.maps.LatLng(response.results[0].geometry.location.lat, response.results[0].geometry.location.lng);
 
+	    //The variable below holds sizing and center options for the map.
 	    var mapOptions = {
 	      zoom: 14,
 	      center: latlng
 	    }
+
+	    //This variable holds the information that appears in the window if a marker is clicked.
         var infowindow = new google.maps.InfoWindow({
           content: address
         });
 
+        //The call below creates a Google Map in the Gmap div, using the 
 	    map = new google.maps.Map(document.getElementById('Gmap'), mapOptions);
+
+	    //The call below creates a marker for the address that was passed into the initialize map function.
 	    var marker = new google.maps.Marker({
 		  map: map,
 		  position: latlng,
           title: address
 			 });
 
+	    //Code below adds a click listener to the marker, so that if the marker is clicked the infowindow with address information will appear.
         marker.addListener('click', function() {
           infowindow.open(map, marker);
         });
@@ -266,15 +280,21 @@
 		panelBody.append(table);
 		eventPanel.append(panelBody);
 
+		//The code below takes the venue name, as well as all the address information from the venue, and combines them all into one variable that can be used by the mapping function
 		var address = venueEvents[$(this).attr("data-prop")][0].venue + "<br> " + venueEvents[$(this).attr("data-prop")][0].address + " "+venueEvents[$(this).attr("data-prop")][0].city + ", " + venueEvents[$(this).attr("data-prop")][0].state + " "+ venueEvents[$(this).attr("data-prop")][0].postalCode;
+
+			//Code below checks to see if a map has been created of the page yet or not, this was implemented so that our map would appear on the page dynamically.
     	    if(mapCreated === false){
     		  	initMap(address);
     			mapCreated = true;
     			  }
+
+    		//If a map has already been created then the code below simply maps the recently clicked venue on the already existing map.
     		else{
     			geocoder.geocode( { 'address': address}, function(results, status) {
      				if (status == 'OK') {
 
+     					//Code below initializes a new infowindow, map center location, and marker for the new address that was clicked. Since the map already exists, converting an address into Lat and Long coordinates is no longer necessary as mapping can be done with address details.
 				        var infowindow = new google.maps.InfoWindow({
 				          content: address
 				        });
@@ -287,6 +307,8 @@
 				        marker.addListener('click', function() {
         			    infowindow.open(map, marker);
   				        });
+
+  				    //Code below check is return if there was an error in mapping the address.
 				    } else {
 				        alert('Geocode was not successful for the following reason: ' + status);
 				      }
