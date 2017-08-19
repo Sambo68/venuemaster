@@ -1,2 +1,30 @@
-# venuemaster
-First Project
+Description: As more people are opting for stay-cations over out of town vacations, a new importance has been placed on finding events and activities in your local area.  With venueMaster, inputting your zip code and desired radius of travel returns you local venues and events that you can save.
+
+Motivation: As individuals, we are all making an effort to be more social and get the full experience our towns have to offer.  Our goal was to create a web application that would ask for a simple input and return all the local venues and the corresponding events in one seamless interface.
+
+Result: Using the Ticket Master API combined with the Google Maps API, we were not only able to query a database of events in a predetermined location/radius, but find their hosting venues and pinpoint them on a map.
+
+Team Efforts: Sam was responsible for writing the UI, Natasha was responsible for the Google Maps API functions, Zac was responsible for the Ticker Master API functions, and Joe was responsible for managing the returned data in Firebase.
+
+Individual Responsibilities:
+Sam:
+-	Created the HTML interface with forms that will collect the user inputs
+-	Designed the UI with Bootstrap technology to keep the App responsive to all platforms
+-	Worked with backend to create HTML elements with ids and classes that dynamic created elements can append to
+Natasha:
+-	Helped Sam with some of the initial bootstrap and HTML page layout.
+-	Responsible for learning and implementing the Google Maps API
+-	Modified the Google Maps API code to create a dynamically loaded Google Map, with onclick features for each of the address venues
+Zac: 
+-	Used Google Maps API to convert zip code to longitude-latitude location to query Ticket Master API
+-	Pulled local venues from an event list and rendered them each as a unique button in a new panel
+-	Dynamically create a panel with a table to house each individual venue’s events with information, a link to buy tickets, and an optional save button
+Joe:
+-	Our project involves some data processing. And, to make things easy to store data, and retrieve, we used firebase
+-	We take the venue information and place them in a temporary storage provided by firebase
+-	Then, we are able to pull this data back into our app to be presented on the "My Favorites" table
+
+Challenges: Our major challenge was querying Ticket Master’s API for the locations in a prompted zip code.  Due to the requested arguments of Ticket Master’s API, we were unable to directly return a set radius for a particular zip code.  To solve this issue, we used the Google Maps API to convert a zip code to a longitude-latitude pinpoint that can be used as an argument for the Ticket Master API.
+
+Improvements: In the future, we would like to create user logins for individuals to create personalized save events list as opposed to the current global saved event list table.  From there, we would like to integrate these user lists with social media, so that event lists can be shared on facebook and other platforms.
+
